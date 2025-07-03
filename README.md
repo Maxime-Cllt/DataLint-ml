@@ -14,14 +14,12 @@
 **DataLint-ml** is the core machine learning engine powering the DataLint ecosystem. This repository contains advanced
 ML models and algorithms designed to automatically detect, analyze, and report data quality issues inside datasets.
 
-## 🚀 Quick Start
-
-### Prerequisites
+## 🔧 Pre-requisites
 
 - **Python 3.12+**
 - **pip** or **conda**
-- **Git**
 - **Virtual Environment** (recommended)
+- **GPU** (recommended)
 
 ## 🤝 Contributing
 
