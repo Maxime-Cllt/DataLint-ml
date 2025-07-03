@@ -7,7 +7,6 @@
   <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" alt="PyTorch" />
   <img src="https://img.shields.io/badge/Version-1.0.0-success?style=for-the-badge" alt="Version" />
 </div>
----
 
 ## 📖 Overview
 

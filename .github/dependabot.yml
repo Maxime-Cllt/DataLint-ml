@@ -1,0 +1,70 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    # Allow both direct and indirect updates
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
+    # Automatically merge minor and patch updates
+    auto-merge:
+      - dependency-type: "direct"
+        update-type: "version-update:semver-patch"
+      - dependency-type: "direct"
+        update-type: "version-update:semver-minor"
+    # Set commit message preferences
+    commit-message:
+      prefix: "deps"
+      prefix-development: "deps-dev"
+      include: "scope"
+    # Limit the number of open pull requests
+    open-pull-requests-limit: 10
+    # Set pull request labels
+    labels:
+      - "dependencies"
+      - "python"
+    # Set reviewers
+    reviewers:
+      - "Maxime-Cllt"
+    # Set assignees
+    assignees:
+      - "Maxime-Cllt"
+    # Group related dependencies together
+    groups:
+      # Group all pytest-related packages
+      testing:
+        patterns:
+          - "pytest*"
+          - "coverage*"
+          - "mock*"
+      # Group all development dependencies
+      development:
+        patterns:
+          - "black"
+          - "flake8*"
+          - "isort"
+          - "mypy*"
+          - "pre-commit*"
+      # Group ML/Data Science dependencies
+      ml-framework:
+        patterns:
+          - "torch*"
+          - "scikit-learn*"
+          - "pandas*"
+          - "numpy*"
+          - "scipy*"
+    ignore:
+      # Ignore major version updates for stable packages
+      - dependency-name: "django"
+        update-types: [ "version-update:semver-major" ]
+      # Ignore specific versions that might have issues
+      - dependency-name: "urllib3"
+        versions: [ "2.0.0", "2.0.1" ]
+    target-branch: "main"
+    vendor: false
+    versioning-strategy: "increase"
