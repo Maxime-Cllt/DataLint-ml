@@ -1,7 +1,7 @@
 import unittest
 from pathlib import Path
 
-from src.path import get_project_root
+from src.utils.path import get_project_root
 
 
 class TestUtils(unittest.TestCase):
