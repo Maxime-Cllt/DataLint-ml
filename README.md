@@ -17,6 +17,7 @@ ML models and algorithms designed to automatically detect, analyze, and report d
 
 - **Python 3.12+**
 - **pip** or **conda**
+- **Poetry** (for managing dependencies)
 - **Virtual Environment** (recommended)
 - **GPU** (recommended)
 
@@ -24,10 +25,10 @@ See `pyproject.toml` for a complete list of dependencies.
 
 ## 🚀 Installation
 
-1. Install the required dependencies:
+1. Run commands to set up the environment and install dependencies:
 
    ```bash
-   pip install -e .
+   poetry install
    ```
 
 2. If you are using a GPU, ensure that you have the appropriate CUDA toolkit installed.
