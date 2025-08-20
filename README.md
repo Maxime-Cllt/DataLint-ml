@@ -20,6 +20,18 @@ ML models and algorithms designed to automatically detect, analyze, and report d
 - **Virtual Environment** (recommended)
 - **GPU** (recommended)
 
+See `pyproject.toml` for a complete list of dependencies.
+
+## 🚀 Installation
+
+1. Install the required dependencies:
+
+   ```bash
+   pip install -e .
+   ```
+
+2. If you are using a GPU, ensure that you have the appropriate CUDA toolkit installed.
+
 ## 🤝 Contributing
 
 We welcome contributions to enhance the capabilities of DataLint-ml.
