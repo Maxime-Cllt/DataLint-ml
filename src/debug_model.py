@@ -5,7 +5,7 @@ import torch
 from torchinfo import summary
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
-from scripts.path import get_project_root
+from src.path import get_project_root
 from utils.metrics import plot_attention, print_tokenizer_details, print_model_details, print_parameter_sizes
 
 if __name__ == '__main__':
