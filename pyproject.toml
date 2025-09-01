@@ -1,21 +1,31 @@
-[tool.poetry]
+[project]
 name = "DataLint-ml"
 version = "1.0.0"
 readme = "README.md"
 license = "LICENSE"
-authors = ["Maxime-Cllt"]
-requires-python = "3.12"
-
-
+authors = [
+    { name = "Maxime-Cllt" }
+]
+requires-python = ">=3.12"
 packages = [
     { include = "DataLint_ml", from = "src" }
 ]
+dependencies = [
+    "torch>= 2.7.0",
+    "scikit-learn >= 1.7.1",
+    "pandas >= 2.3.1",
+    "numpy >= 2.3.2",
+    "matplotlib >= 3.10.6",
+    "seaborn >=0.13.2",
+    "transformers>=4.56.0",
+    "datasets>=4.0.0",
+    "torchinfo>=1.8.0",
+    "sqlalchemy>=2.0.43"
+]
 
-[tool.poetry.dependencies]
-torch = "2.7.0"
-scikit-learn = ">=1.7.1"
-pandas = ">=2.3.1"
-numpy = ">=2.3.2"
+[tool.poetry]
+package-mode = false
+
 
 [build-system]
 requires = ["poetry-core>=2.1.3"]

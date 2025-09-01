@@ -9,7 +9,7 @@ from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 from sklearn.model_selection import train_test_split
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, Trainer, TrainingArguments, set_seed
 
-from src.path import get_project_root
+from src.utils.path import get_project_root
 
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
