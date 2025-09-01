@@ -36,6 +36,9 @@ jobs:
       - name: Verify Python version
         run: python --version
 
+      - name: Add right permissions for scripts
+        run: chmod +x ./scripts/*.sh
+
       - name: Set up environment
         run: ./scripts/setup-env.sh
 
