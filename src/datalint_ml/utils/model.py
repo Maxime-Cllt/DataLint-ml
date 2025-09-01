@@ -14,7 +14,7 @@ from sklearn.metrics import (
 )
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
-from src.utils.path import get_project_root
+from datalint_ml.utils.path import get_project_root
 
 
 def run_inference(model, tokenizer, device, texts: List[str], threshold: float = 0.5) -> Tuple[

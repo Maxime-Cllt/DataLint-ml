@@ -17,7 +17,7 @@ ML models and algorithms designed to automatically detect, analyze, and report d
 
 - **Python 3.12+**
 - **pip** or **conda**
-- **Poetry** (optional but recommended)
+- **uv** (package manager, optional but recommended)
 - **Virtual Environment** (recommended)
 - **GPU** (recommended)
 

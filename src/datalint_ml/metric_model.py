@@ -6,7 +6,7 @@ from datetime import datetime
 import pandas as pd
 from sqlalchemy import create_engine, text
 
-from src.utils.path import get_project_root
+from datalint_ml.utils.path import get_project_root
 from utils.metrics import calculate_comprehensive_metrics
 from utils.model import preprocess_data, load_model_and_tokenizer, run_inference, save_results
 

@@ -1,19 +1,20 @@
 #!/bin/bash
 
-
-# This script initializes the development environment using Poetry.
+# This script initializes the development environment using uv.
 
 # Exit immediately if a command exits with a non-zero status
 set -e
 
-# Set up a new Poetry environment with Python 3.12
-poetry env use 3.12
+PYTHON_VERSION="3.12"
 
-# Install dependencies
-poetry install
+# Ensure we're using Python 3.12 (uv will create the venv automatically)
+echo "Setting up virtual environment with Python $PYTHON_VERSION"
+uv venv --python $PYTHON_VERSION
 
-# Sync
-poetry sync
+# Install dependencies from pyproject.toml
+echo "Installing dependencies"
+uv sync
 
-# Lock the dependencies
-poetry lock
+# (Optional) lock dependencies explicitly (uv maintains a uv.lock file)
+echo "Locking dependencies"
+uv lock
