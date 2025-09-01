@@ -1,0 +1,43 @@
+name: Tests Integration
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ 3.12 ]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # Use uv to manage Python versions and virtual environments
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "latest"
+          version-file: 'pyproject.toml'
+          activate-environment: true
+          enable-cache: true
+
+      - name: Verify uv version
+        run: uv --version
+
+        # Set up Python version using uv
+      - name: Set up Python ${{ matrix.python-version }}
+        run: uv python install ${{ matrix.python-version }}
+
+      - name: Verify Python version
+        run: python --version
+
+      - name: Set up environment
+        run: ./scripts/setup-env.sh
+
+      - name: Run tests
+        run: uv run pytest

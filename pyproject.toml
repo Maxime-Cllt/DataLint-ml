@@ -19,8 +19,12 @@ dependencies = [
     "sqlalchemy>=2.0.43",
 ]
 
-[tool.uv.sources]
-DataLint-ml = { path = "src/datalint_ml" }
+[tool.uv]
+dev-dependencies = [
+    "pytest>=8.4.1",
+    "black>=25.1.0",
+    "ruff>=0.12.11",
+]
 
 [build-system]
 requires = ["hatchling"]
