@@ -23,6 +23,7 @@ updates:
       - "dependencies"
       - "python"
       - "ml"
+      - "uv"
     # Set reviewers
     reviewers:
       - "Maxime-Cllt"
@@ -45,3 +46,5 @@ updates:
           - "ipython*"
     target-branch: "main"
     versioning-strategy: "increase"
+    # Configure for uv projects
+    insecure-external-code-execution: allow
