@@ -27,11 +27,21 @@ See `pyproject.toml` for a complete list of dependencies.
 
 1. Run commands to set up the environment and install dependencies:
 
-   ```bash
-   ./scripts/setup-env.sh
-   ```
+```bash
+./scripts/setup-env.sh
+```
 
 2. If you are using a GPU, ensure that you have the appropriate CUDA toolkit installed.
+
+## 🧪 Code quality
+
+### Unit Tests available
+
+To run unit tests and ensure code quality, run the following commands:
+
+```bash
+uv run pytest
+```
 
 ## 🤝 Contributing
 
