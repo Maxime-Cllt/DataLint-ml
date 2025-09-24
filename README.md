@@ -43,6 +43,22 @@ To run unit tests and ensure code quality, run the following commands:
 uv run pytest
 ```
 
+### Linting available
+
+Linting is done using `ruff`. To check for linting issues, run:
+
+```bash
+uv run ruff check .
+```
+
+### Formatting available
+
+Code formatting is done using `black`. To format the code, run:
+
+```bash
+uv run black .
+```
+
 ## 🤝 Contributing
 
 We welcome contributions to enhance the capabilities of DataLint-ml.

@@ -4,11 +4,16 @@ import time
 from datetime import datetime
 
 import pandas as pd
+from datalint_ml.utils.path import get_project_root
 from sqlalchemy import create_engine, text
 
-from datalint_ml.utils.path import get_project_root
 from utils.metrics import calculate_comprehensive_metrics
-from utils.model import preprocess_data, load_model_and_tokenizer, run_inference, save_results
+from utils.model import (
+    preprocess_data,
+    load_model_and_tokenizer,
+    run_inference,
+    save_results,
+)
 
 
 def setup_logging(model_version: str) -> logging.Logger:
@@ -28,12 +33,9 @@ def setup_logging(model_version: str) -> logging.Logger:
 
     logging.basicConfig(
         level=logging.INFO,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-        handlers=[
-            logging.FileHandler(log_file),
-            logging.StreamHandler()
-        ],
-        force=True
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        handlers=[logging.FileHandler(log_file), logging.StreamHandler()],
+        force=True,
     )
 
     logger = logging.getLogger(__name__)
@@ -41,7 +43,9 @@ def setup_logging(model_version: str) -> logging.Logger:
     return logger
 
 
-def load_data_from_database(engine, table_name: str, limit: int = 10000) -> pd.DataFrame:
+def load_data_from_database(
+        engine, table_name: str, limit: int = 10000
+) -> pd.DataFrame:
     """
     Load data from the specified database table with comprehensive logging.
     :param engine:
@@ -68,16 +72,20 @@ def load_data_from_database(engine, table_name: str, limit: int = 10000) -> pd.D
         logger.info(f"Data loaded successfully in {load_time:.2f} seconds")
 
         # Log target distribution (note is the target: 0=safe, 1=unsafe)
-        note_distribution = dataset['note'].value_counts().sort_index()
+        note_distribution = dataset["note"].value_counts().sort_index()
         logger.info(f"Target (note) distribution:")
         for note_value, count in note_distribution.items():
             safety_label = "SAFE" if note_value == 0 else "UNSAFE"
-            logger.info(f"  - Note {note_value} ({safety_label}): {count} samples ({count / len(dataset) * 100:.1f}%)")
+            logger.info(
+                f"  - Note {note_value} ({safety_label}): {count} samples ({count / len(dataset) * 100:.1f}%)"
+            )
 
         # Check if we have balanced classes
         if len(note_distribution) < 2:
             logger.warning("Only one class found in target variable 'note'!")
-            logger.warning("This will result in perfect accuracy but meaningless evaluation.")
+            logger.warning(
+                "This will result in perfect accuracy but meaningless evaluation."
+            )
 
         return dataset
 
@@ -102,9 +110,9 @@ def main():
     try:
         # Paths and database setup
         PATH = os.path.join(get_project_root(), "script", "v2", "tiny", MODEL_VERSION)
-        sqlite_path: str = r'database.db'
-        engine = create_engine(f'sqlite:///{sqlite_path}')
-        table_name = 'test_model'
+        sqlite_path: str = r"database.db"
+        engine = create_engine(f"sqlite:///{sqlite_path}")
+        table_name = "test_model"
 
         logger.info(f"Model path: {PATH}")
         logger.info(f"Database path: {sqlite_path}")
@@ -124,12 +132,22 @@ def main():
         )
 
         # Calculate metrics
-        metrics = calculate_comprehensive_metrics(target_labels, predictions, probabilities,
-                                                  threshold=CLASSIFICATION_THRESHOLD)
+        metrics = calculate_comprehensive_metrics(
+            target_labels,
+            predictions,
+            probabilities,
+            threshold=CLASSIFICATION_THRESHOLD,
+        )
 
         # Save results
-        save_results(metrics, MODEL_VERSION, inference_time, len(input_texts),
-                     probabilities, target_labels)
+        save_results(
+            metrics,
+            MODEL_VERSION,
+            inference_time,
+            len(input_texts),
+            probabilities,
+            target_labels,
+        )
 
         logger.info("=== EVALUATION COMPLETED SUCCESSFULLY ===")
         logger.info(f"Model: {MODEL_VERSION}")
@@ -142,10 +160,10 @@ def main():
         logger.info(f"Recall (weighted): {metrics['recall']:.4f}")
         logger.info(f"F1-score (weighted): {metrics['f1_weighted']:.4f}")
         logger.info(f"F1-score (unsafe): {metrics['f1_unsafe']:.4f}")
-        if metrics['roc_auc'] is not None:
+        if metrics["roc_auc"] is not None:
             logger.info(f"ROC AUC: {metrics['roc_auc']:.4f}")
 
-        if 'specificity' in metrics:
+        if "specificity" in metrics:
             logger.info(f"Specificity (Safe detection): {metrics['specificity']:.4f}")
             logger.info(f"Sensitivity (Unsafe detection): {metrics['sensitivity']:.4f}")
 
@@ -154,5 +172,5 @@ def main():
         raise
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

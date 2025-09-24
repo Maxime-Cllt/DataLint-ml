@@ -15,13 +15,13 @@ class TestUtils(unittest.TestCase):
         self.assertTrue(root.exists())
 
         # Test if the root path is indeed the project root by checking for a known file
-        self.assertTrue((root / 'README.md').exists())
+        self.assertTrue((root / "README.md").exists())
 
         # Test with a custom marker
-        custom_marker = '.gitignore'
+        custom_marker = ".gitignore"
         custom_root = get_project_root(marker=custom_marker)
         self.assertTrue((custom_root / custom_marker).exists())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

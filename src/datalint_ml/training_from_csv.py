@@ -4,12 +4,17 @@ import time
 import numpy as np
 import pandas as pd
 import torch
+from datalint_ml.utils.path import get_project_root
 from datasets import Dataset, DatasetDict
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 from sklearn.model_selection import train_test_split
-from transformers import AutoModelForSequenceClassification, AutoTokenizer, Trainer, TrainingArguments, set_seed
-
-from datalint_ml.utils.path import get_project_root
+from transformers import (
+    AutoModelForSequenceClassification,
+    AutoTokenizer,
+    Trainer,
+    TrainingArguments,
+    set_seed,
+)
 
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
@@ -22,7 +27,9 @@ def compute_metrics(eval_pred):
     """
     logits, labels = eval_pred
     preds = np.argmax(logits, axis=-1)
-    precision, recall, f1, _ = precision_recall_fscore_support(labels, preds, average='binary')
+    precision, recall, f1, _ = precision_recall_fscore_support(
+        labels, preds, average="binary"
+    )
     acc = accuracy_score(labels, preds)
     return {"accuracy": acc, "f1": f1, "precision": precision, "recall": recall}
 
@@ -33,7 +40,12 @@ def tokenize_function(batch):
     :param batch:
     :return:
     """
-    return tokenizer(batch["text"], padding="max_length", truncation=True, max_length=tokenizer.model_max_length)
+    return tokenizer(
+        batch["text"],
+        padding="max_length",
+        truncation=True,
+        max_length=tokenizer.model_max_length,
+    )
 
 
 if __name__ == "__main__":
@@ -49,8 +61,9 @@ if __name__ == "__main__":
 
     df["text"] = df["text"].astype(str)
 
-    X_train, X_test, y_train, y_test = train_test_split(df["text"], df["label"], test_size=0.2, stratify=df["label"],
-                                                        random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(
+        df["text"], df["label"], test_size=0.2, stratify=df["label"], random_state=42
+    )
 
     train_df = pd.DataFrame({"text": X_train, "label": y_train})
     test_df = pd.DataFrame({"text": X_test, "label": y_test})
@@ -60,10 +73,12 @@ if __name__ == "__main__":
 
     train_dataset = Dataset.from_pandas(train_df)
     test_dataset = Dataset.from_pandas(test_df)
-    dataset = DatasetDict({
-        "train": train_dataset,
-        "test": test_dataset,
-    })
+    dataset = DatasetDict(
+        {
+            "train": train_dataset,
+            "test": test_dataset,
+        }
+    )
 
     tokenized_datasets = dataset.map(tokenize_function, batched=True)
 
@@ -84,7 +99,7 @@ if __name__ == "__main__":
         logging_strategy="no",
         save_strategy="no",
         report_to=[],
-        seed=42
+        seed=42,
     )
 
     # Initialize Trainer
@@ -101,12 +116,19 @@ if __name__ == "__main__":
 
     # Evaluate
     eval_results = trainer.evaluate()
-    print(f"Eval results -> Accuracy: {eval_results['eval_accuracy']:.2f} | F1: {eval_results['eval_f1']:.2f}")
+    print(
+        f"Eval results -> Accuracy: {eval_results['eval_accuracy']:.2f} | F1: {eval_results['eval_f1']:.2f}"
+    )
 
     # Inference example
     example = "Test example for prediction."
-    inputs = tokenizer(example, return_tensors="pt", padding=True, truncation=True,
-                       max_length=tokenizer.model_max_length).to(device)
+    inputs = tokenizer(
+        example,
+        return_tensors="pt",
+        padding=True,
+        truncation=True,
+        max_length=tokenizer.model_max_length,
+    ).to(device)
     with torch.no_grad():
         outputs = model(**inputs)
         predictions = torch.argmax(outputs.logits, dim=-1)
@@ -139,25 +161,32 @@ if __name__ == "__main__":
         print(f"Error saving complete model: {e}")
 
     try:
+
         class TorchScriptWrapper(torch.nn.Module):
             def __init__(self, model):
                 super().__init__()
                 self.model = model
 
             def forward(self, input_ids, attention_mask):
-                return self.model(input_ids=input_ids, attention_mask=attention_mask).logits
+                return self.model(
+                    input_ids=input_ids, attention_mask=attention_mask
+                ).logits
 
 
         wrapper = TorchScriptWrapper(model)
         example_input_ids = torch.ones((1, 512), dtype=torch.long).to(device)
         example_attention_mask = torch.ones((1, 512), dtype=torch.long).to(device)
-        traced_model = torch.jit.trace(wrapper, (example_input_ids, example_attention_mask))
+        traced_model = torch.jit.trace(
+            wrapper, (example_input_ids, example_attention_mask)
+        )
         traced_model.save(os.path.join(PATH_TO_SAVE, "model", "traced_model.pt"))
         print("Traced model saved successfully.")
     except Exception as e:
         print(f"Error saving traced model: {e}")
     try:
-        torch.save(model.state_dict(), os.path.join(PATH_TO_SAVE, "model", "state_dict.pt"))
+        torch.save(
+            model.state_dict(), os.path.join(PATH_TO_SAVE, "model", "state_dict.pt")
+        )
         print("State dict saved successfully.")
     except Exception as e:
         print(f"Error saving state dict: {e}")
