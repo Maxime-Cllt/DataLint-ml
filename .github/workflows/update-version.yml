@@ -3,7 +3,7 @@ name: Update Version Badge in Markdown Files
 on:
   push:
     branches: [ "main", "master" ]
-    paths: [ 'Cargo.toml' ] # Trigger only when Cargo.toml changes
+    paths: [ 'pyproject.toml' ] # Trigger only when pyproject.toml changes
   workflow_dispatch:
 
 jobs:
@@ -16,20 +16,20 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract version from Cargo.toml
+      - name: Extract version from pyproject.toml
         id: get_version
         run: |
           # Extract version using multiple methods for robustness
           if command -v toml &> /dev/null; then
-            VERSION=$(toml get Cargo.toml package.version --raw 2>/dev/null)
+            VERSION=$(toml get pyproject.toml package.version --raw 2>/dev/null)
           fi
           
           if [ -z "$VERSION" ]; then
-            VERSION=$(grep '^version = ' Cargo.toml | head -1 | sed 's/version = "\(.*\)"/\1/')
+            VERSION=$(grep '^version = ' pyproject.toml | head -1 | sed 's/version = "\(.*\)"/\1/')
           fi
           
           if [ -z "$VERSION" ]; then
-            echo "Error: Could not extract version from Cargo.toml"
+            echo "Error: Could not extract version from pyproject.toml"
             exit 1
           fi
           
