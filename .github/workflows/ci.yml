@@ -2,9 +2,23 @@ name: Tests Integration
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "main" ]
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'scripts/**'
+      - 'pyproject.toml'
+      - 'uv.lock'
+      - '.github/workflows/**'
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master", "main" ]
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'scripts/**'
+      - 'pyproject.toml'
+      - 'uv.lock'
+      - '.github/workflows/**'
   workflow_dispatch:
 
 jobs:
