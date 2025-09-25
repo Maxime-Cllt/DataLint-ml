@@ -40,7 +40,7 @@ See `pyproject.toml` for a complete list of dependencies.
 To run unit tests and ensure code quality, run the following commands:
 
 ```bash
-uv run pytest
+./scripts/run-pytest.sh
 ```
 
 ### Linting available
@@ -48,7 +48,7 @@ uv run pytest
 Linting is done using `ruff`. To check for linting issues, run:
 
 ```bash
-uv run ruff check .
+.scripts/run-ruff.sh
 ```
 
 ### Formatting available
@@ -56,7 +56,7 @@ uv run ruff check .
 Code formatting is done using `black`. To format the code, run:
 
 ```bash
-uv run black .
+./scripts/run-black.sh
 ```
 
 ## 🤝 Contributing
