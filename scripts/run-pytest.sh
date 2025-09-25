@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 # This script runs pytest using uv.
 
