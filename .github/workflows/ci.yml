@@ -43,4 +43,10 @@ jobs:
         run: ./scripts/setup-env.sh
 
       - name: Run tests
-        run: uv run pytest
+        run: ./scripts/run-pytest.sh
+
+      - name: Run lint with ruff
+        run: ./scripts/run-ruff.sh
+
+      - name: Run black with check
+        run: ./scripts/run-black.sh

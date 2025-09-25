@@ -60,7 +60,7 @@ if __name__ == "__main__":
 
     print("\n===== Model Size =====")
     model_size = (
-            sum(f.stat().st_size for f in Path(PATH, "tiny_model").rglob("*")) / 1e6
+        sum(f.stat().st_size for f in Path(PATH, "tiny_model").rglob("*")) / 1e6
     )
     print(f"Model size: {model_size:.2f} MB")
 

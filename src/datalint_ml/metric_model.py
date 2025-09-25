@@ -44,7 +44,7 @@ def setup_logging(model_version: str) -> logging.Logger:
 
 
 def load_data_from_database(
-        engine, table_name: str, limit: int = 10000
+    engine, table_name: str, limit: int = 10000
 ) -> pd.DataFrame:
     """
     Load data from the specified database table with comprehensive logging.
@@ -73,7 +73,7 @@ def load_data_from_database(
 
         # Log target distribution (note is the target: 0=safe, 1=unsafe)
         note_distribution = dataset["note"].value_counts().sort_index()
-        logger.info(f"Target (note) distribution:")
+        logger.info("Target (note) distribution:")
         for note_value, count in note_distribution.items():
             safety_label = "SAFE" if note_value == 0 else "UNSAFE"
             logger.info(
@@ -152,8 +152,8 @@ def main():
         logger.info("=== EVALUATION COMPLETED SUCCESSFULLY ===")
         logger.info(f"Model: {MODEL_VERSION}")
         logger.info(f"Dataset size: {len(input_texts)}")
-        logger.info(f"Input: label (text)")
-        logger.info(f"Target: note (0=Safe, 1=Unsafe)")
+        logger.info("Input: label (text)")
+        logger.info("Target: note (0=Safe, 1=Unsafe)")
         logger.info(f"Classification threshold: {CLASSIFICATION_THRESHOLD}")
         logger.info(f"Accuracy: {metrics['accuracy']:.4f}")
         logger.info(f"Precision (weighted): {metrics['precision']:.4f}")

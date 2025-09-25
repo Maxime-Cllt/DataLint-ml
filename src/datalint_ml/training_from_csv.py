@@ -172,7 +172,6 @@ if __name__ == "__main__":
                     input_ids=input_ids, attention_mask=attention_mask
                 ).logits
 
-
         wrapper = TorchScriptWrapper(model)
         example_input_ids = torch.ones((1, 512), dtype=torch.long).to(device)
         example_attention_mask = torch.ones((1, 512), dtype=torch.long).to(device)

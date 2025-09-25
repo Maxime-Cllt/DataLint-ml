@@ -15,7 +15,7 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
 
 def run_inference(
-        model, tokenizer, device, texts: List[str], threshold: float = 0.5
+    model, tokenizer, device, texts: List[str], threshold: float = 0.5
 ) -> Tuple[List[int], List[float], List[List[float]], float]:
     """
     Run inference on the provided texts using the specified model and tokenizer.
@@ -93,7 +93,7 @@ def run_inference(
     total_inference_time = time.time() - start_time
     avg_inference_time = np.mean(inference_times)
 
-    logger.info(f"Inference completed:")
+    logger.info("Inference completed:")
     logger.info(f"  - Total time: {total_inference_time:.2f} seconds")
     logger.info(f"  - Average time per sample: {avg_inference_time * 1000:.2f} ms")
     logger.info(f"  - Samples per second: {len(texts) / total_inference_time:.2f}")
@@ -154,7 +154,7 @@ def preprocess_data(dataset: pd.DataFrame) -> Tuple[List[str], List[int]]:
         if orig > trunc
     )
 
-    logger.info(f"Text preprocessing completed:")
+    logger.info("Text preprocessing completed:")
     logger.info(f"  - Average original length: {np.mean(original_lengths):.2f}")
     logger.info(f"  - Texts truncated: {truncated_count}")
     logger.info(
@@ -214,12 +214,12 @@ def load_model_and_tokenizer(model_path: str) -> Tuple[Any, Any, torch.device]:
 
 
 def save_results(
-        metrics: Dict[str, Any],
-        model_version: str,
-        inference_time: float,
-        dataset_size: int,
-        probabilities: List[float],
-        true_labels: List[int],
+    metrics: Dict[str, Any],
+    model_version: str,
+    inference_time: float,
+    dataset_size: int,
+    probabilities: List[float],
+    true_labels: List[int],
 ):
     """
     Save evaluation results and create visualizations with comprehensive logging.
@@ -329,7 +329,7 @@ def save_results(
         axes[1, 1].set_title("Precision-Recall Curve")
         axes[1, 1].set_xlim([0.0, 1.0])
         axes[1, 1].set_ylim([0.0, 1.05])
-    except Exception as e:
+    except Exception:
         axes[1, 1].text(
             0.5,
             0.5,

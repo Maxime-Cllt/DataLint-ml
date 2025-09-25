@@ -113,9 +113,9 @@ def visualize_embeddings_tsne_filtered(model, tokenizer, num_tokens=200):
     for idx in range(len(inv_vocab)):
         tok = inv_vocab[idx]
         if (
-                not tok.startswith("[unused")
-                and not tok.startswith("[")
-                and is_displayable(tok)
+            not tok.startswith("[unused")
+            and not tok.startswith("[")
+            and is_displayable(tok)
         ):
             valid_ids.append(idx)
             tokens.append(tok)
@@ -143,10 +143,10 @@ def visualize_embeddings_tsne_filtered(model, tokenizer, num_tokens=200):
 
 
 def calculate_comprehensive_metrics(
-        true_labels: List[int],
-        predictions: List[int],
-        probabilities: List[float],
-        threshold: float = 0.5,
+    true_labels: List[int],
+    predictions: List[int],
+    probabilities: List[float],
+    threshold: float = 0.5,
 ) -> Dict[str, Any]:
     """
     Calculate comprehensive evaluation metrics for binary classification with detailed logging.
@@ -165,7 +165,6 @@ def calculate_comprehensive_metrics(
 
     # Check class distribution
     unique_true = set(true_labels)
-    unique_pred = set(predictions)
 
     true_dist = pd.Series(true_labels).value_counts().sort_index()
     pred_dist = pd.Series(predictions).value_counts().sort_index()

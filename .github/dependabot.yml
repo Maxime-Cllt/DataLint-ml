@@ -1,5 +1,6 @@
 version: 2
 updates:
+  # Use pip ecosystem but configure for uv projects
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
@@ -7,44 +8,39 @@ updates:
       day: "monday"
       time: "09:00"
       timezone: "UTC"
-    # Allow both direct and indirect updates
     allow:
       - dependency-type: "direct"
       - dependency-type: "indirect"
-    # Set commit message preferences
     commit-message:
       prefix: "deps"
       prefix-development: "deps-dev"
       include: "scope"
-    # Limit the number of open pull requests
     open-pull-requests-limit: 10
-    # Set pull request labels
     labels:
       - "dependencies"
       - "python"
       - "ml"
       - "uv"
-    # Set reviewers
     reviewers:
       - "Maxime-Cllt"
-    # Set assignees
     assignees:
       - "Maxime-Cllt"
-    # Group ML/Data Science dependencies
     groups:
       ml-framework:
         patterns:
           - "torch*"
-          - "tensorflow*"
           - "scikit-learn*"
           - "pandas*"
           - "numpy*"
           - "scipy*"
           - "matplotlib*"
           - "seaborn*"
-          - "jupyter*"
-          - "ipython*"
-    target-branch: "main"
+          - "transformers*"
+          - "datasets*"
+      dev-tools:
+        patterns:
+          - "pytest*"
+          - "black*"
+          - "ruff*"
+    target-branch: "master"  # Your main branch
     versioning-strategy: "increase"
-    # Configure for uv projects
-    insecure-external-code-execution: allow

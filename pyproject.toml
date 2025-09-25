@@ -23,8 +23,29 @@ dependencies = [
 dev-dependencies = [
     "pytest>=8.4.1",
     "black>=25.1.0",
-    "ruff>=0.12.11",
+    "ruff>=0.12.11"
 ]
+
+# Configuration for Hatch build system
+[tool.hatch.build]
+include = [
+    "datalint_ml/**.py",
+    "README.md",
+    "LICENSE",
+]
+exclude = [
+    "tests/",
+    "docs/",
+    "*.ipynb",
+    ".github/",
+    ".vscode/",
+    ".idea/",
+]
+
+# Configuration for pytest
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
 
 [build-system]
 requires = ["hatchling"]
