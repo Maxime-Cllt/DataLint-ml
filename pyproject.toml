@@ -7,14 +7,14 @@ authors = [
 ]
 requires-python = ">=3.12"
 dependencies = [
-    "torch>=2.7.0",
-    "scikit-learn>=1.7.2",
-    "pandas>=2.3.1",
-    "numpy>=2.3.2",
-    "matplotlib>=3.10.6",
+    "torch>=2.11.0",
+    "scikit-learn>=1.8.0",
+    "pandas>=3.0.2",
+    "numpy>=2.4.4",
+    "matplotlib>=3.10.9",
     "seaborn>=0.13.2",
-    "transformers>=4.56.0",
-    "datasets>=4.0.0",
+    "transformers>=5.7.0",
+    "datasets>=4.8.5",
     "torchinfo>=1.8.0",
     "sqlalchemy>=2.0.43",
 ]
